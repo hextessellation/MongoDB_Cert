@@ -1,8 +1,6 @@
-Here's the code with HTML encoding:
-
 Question 1:
 
-```java
+
 import java.util.ArrayList;
 import org.bson.Document;
 import com.mongodb.BasicDBObject;
@@ -11,50 +9,48 @@ import com.mongodb.client.model.Filters;
 
 public class Connection_practice {
     public static void main(String[] args) {
-        MongoClient mc = MongoClients.create(&quot;mongodb://localhost:27017&quot;);
-        MongoDatabase db = mc.getDatabase(&quot;Saturday&quot;);
-        MongoCollection&lt;Document&gt; col = db.getCollection(&quot;student&quot;);
+        MongoClient mc = MongoClients.create("mongodb://localhost:27017");
+        MongoDatabase db = mc.getDatabase("Saturday");
+        MongoCollection<Document> col = db.getCollection("student");
         col.drop();
-        Document d1 = new Document(&quot;First_Name&quot;, &quot;Sai&quot;)
-            .append(&quot;Last_Name&quot;, &quot;kushal&quot;)
-            .append(&quot;Mark&quot;, 90)
-            .append(&quot;age&quot;, 18);
-        Document d2 = new Document(&quot;First_Name&quot;, &quot;suneeth&quot;)
-            .append(&quot;Last_Name&quot;, &quot;reddy&quot;)
-            .append(&quot;Mark&quot;, 90)
-            .append(&quot;age&quot;, 22);
-        Document d3 = new Document(&quot;First_Name&quot;, &quot;krishna&quot;)
-            .append(&quot;Last_Name&quot;, &quot;kishore&quot;)
-            .append(&quot;Mark&quot;, 91)
-            .append(&quot;age&quot;, 20);
-        Document d4 = new Document(&quot;First_Name&quot;, &quot;Prem&quot;)
-            .append(&quot;Last_Name&quot;, &quot;sai&quot;)
-            .append(&quot;Mark&quot;, 89)
-            .append(&quot;age&quot;, 19);
-        ArrayList&lt;Document&gt; docs = new ArrayList&lt;&gt;();
+        Document d1 = new Document("First_Name", "Sai")
+            .append("Last_Name", "kushal")
+            .append("Mark", 90)
+            .append("age", 18);
+        Document d2 = new Document("First_Name", "suneeth")
+            .append("Last_Name", "reddy")
+            .append("Mark", 90)
+            .append("age", 22);
+        Document d3 = new Document("First_Name", "krishna")
+            .append("Last_Name", "kishore")
+            .append("Mark", 91)
+            .append("age", 20);
+        Document d4 = new Document("First_Name", "Prem")
+            .append("Last_Name", "sai")
+            .append("Mark", 89)
+            .append("age", 19);
+        ArrayList<Document> docs = new ArrayList<>();
         docs.add(d1);
         docs.add(d2);
         docs.add(d3);
         docs.add(d4);
         col.insertMany(docs);
-        Document hm = col.find().sort(new BasicDBObject(&quot;Mark&quot;, -1)).first();
+        Document hm = col.find().sort(new BasicDBObject("Mark", -1)).first();
         if (hm != null) {
-            int m = hm.getInteger(&quot;Mark&quot;);
-            FindIterable&lt;Document&gt; hmStudents = col.find(Filters.eq(&quot;Mark&quot;, m));
-            System.out.println(&quot;Students with the highest mark:&quot;);
+            int m = hm.getInteger("Mark");
+            FindIterable<Document> hmStudents = col.find(Filters.eq("Mark", m));
+            System.out.println("Students with the highest mark:");
             for (Document d : hmStudents) {
                 System.out.println(d);
             }
         } else {
-            System.out.println(&quot;No students found&quot;);
+            System.out.println("No students found");
         }
     }
 }
-```
 
 Question 2:
 
-```java
 import java.util.ArrayList;
 import org.bson.Document;
 import com.mongodb.BasicDBObject;
@@ -62,35 +58,35 @@ import com.mongodb.client.*;
 
 public class Assignment_2_2 {
     public static void main(String[] args) {
-        MongoClient mc = MongoClients.create(&quot;mongodb://localhost:27017&quot;);
-        MongoDatabase db = mc.getDatabase(&quot;Saturday&quot;);
-        MongoCollection&lt;Document&gt; col = db.getCollection(&quot;employee&quot;);
+        MongoClient mc = MongoClients.create("mongodb://localhost:27017");
+        MongoDatabase db = mc.getDatabase("Saturday");
+        MongoCollection<Document> col = db.getCollection("employee");
         col.drop();
-        Document d1 = new Document(&quot;First_Name&quot;, &quot;Sai&quot;)
-            .append(&quot;Last_Name&quot;, &quot;Kushal&quot;)
-            .append(&quot;salary&quot;, 18000)
-            .append(&quot;age&quot;, 30);
-        Document d2 = new Document(&quot;First_Name&quot;, &quot;Krishna&quot;)
-            .append(&quot;Last_Name&quot;, &quot;Kishore&quot;)
-            .append(&quot;salary&quot;, 21000)
-            .append(&quot;age&quot;, 35);
-        Document d3 = new Document(&quot;First_Name&quot;, &quot;Feroz&quot;)
-            .append(&quot;Last_Name&quot;, &quot;shaik&quot;)
-            .append(&quot;salary&quot;, 17000)
-            .append(&quot;age&quot;, 42);
-        Document d4 = new Document(&quot;First_Name&quot;, &quot;karthik&quot;)
-            .append(&quot;Last_Name&quot;, &quot;ram&quot;)
-            .append(&quot;salary&quot;, 22000)
-            .append(&quot;age&quot;, 37);
-        Document d5 = new Document(&quot;First_Name&quot;, &quot;suneeth&quot;)
-                .append(&quot;Last_Name&quot;, &quot;reddy&quot;)
-                .append(&quot;salary&quot;, 38000)
-                .append(&quot;age&quot;, 44);
-        Document d6 = new Document(&quot;First_Name&quot;, &quot;lalith&quot;)
-                .append(&quot;Last_Name&quot;, &quot;sri&quot;)
-                .append(&quot;salary&quot;, 29000)
-                .append(&quot;age&quot;, 32);
-        ArrayList&lt;Document&gt; docs = new ArrayList&lt;&gt;();
+        Document d1 = new Document("First_Name", "Sai")
+            .append("Last_Name", "Kushal")
+            .append("salary", 18000)
+            .append("age", 30);
+        Document d2 = new Document("First_Name", "Krishna")
+            .append("Last_Name", "Kishore")
+            .append("salary", 21000)
+            .append("age", 35);
+        Document d3 = new Document("First_Name", "Feroz")
+            .append("Last_Name", "shaik")
+            .append("salary", 17000)
+            .append("age", 42);
+        Document d4 = new Document("First_Name", "karthik")
+            .append("Last_Name", "ram")
+            .append("salary", 22000)
+            .append("age", 37);
+        Document d5 = new Document("First_Name", "suneeth")
+                .append("Last_Name", "reddy")
+                .append("salary", 38000)
+                .append("age", 44);
+        Document d6 = new Document("First_Name", "lalith")
+                .append("Last_Name", "sri")
+                .append("salary", 29000)
+                .append("age", 32);
+        ArrayList<Document> docs = new ArrayList<>();
         docs.add(d1);
         docs.add(d2);
         docs.add(d3);
@@ -98,21 +94,20 @@ public class Assignment_2_2 {
         docs.add(d5);
         docs.add(d6);
         col.insertMany(docs);
-        FindIterable&lt;Document&gt; ss = col.find().sort(new BasicDBObject(&quot;salary&quot;, 1));
+        FindIterable<Document> ss = col.find().sort(new BasicDBObject("salary", 1));
         Document ls = null;
         for (Document d : ss) {
-            int a = d.getInteger(&quot;age&quot;);
-            if (a &gt;= 30 &amp;&amp; a &lt;= 40) {
+            int a = d.getInteger("age");
+            if (a >= 30 && a <= 40) {
                 ls = d;
                 break;
             }
         }
         if (ls != null) {
-            System.out.println(&quot;Employee with the lowest salary in the age range 30 to 40:&quot;);
+            System.out.println("Employee with the lowest salary in the age range 30 to 40:");
             System.out.println(ls.toJson());
         } else {
-            System.out.println(&quot;No employees found&quot;);
+            System.out.println("No employees found");
         }
     }
 }
-```
