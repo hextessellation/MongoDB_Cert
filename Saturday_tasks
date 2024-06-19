@@ -1,0 +1,118 @@
+Here's the code with HTML encoding:
+
+Question 1:
+
+```java
+import java.util.ArrayList;
+import org.bson.Document;
+import com.mongodb.BasicDBObject;
+import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
+
+public class Connection_practice {
+    public static void main(String[] args) {
+        MongoClient mc = MongoClients.create(&quot;mongodb://localhost:27017&quot;);
+        MongoDatabase db = mc.getDatabase(&quot;Saturday&quot;);
+        MongoCollection&lt;Document&gt; col = db.getCollection(&quot;student&quot;);
+        col.drop();
+        Document d1 = new Document(&quot;First_Name&quot;, &quot;Sai&quot;)
+            .append(&quot;Last_Name&quot;, &quot;kushal&quot;)
+            .append(&quot;Mark&quot;, 90)
+            .append(&quot;age&quot;, 18);
+        Document d2 = new Document(&quot;First_Name&quot;, &quot;suneeth&quot;)
+            .append(&quot;Last_Name&quot;, &quot;reddy&quot;)
+            .append(&quot;Mark&quot;, 90)
+            .append(&quot;age&quot;, 22);
+        Document d3 = new Document(&quot;First_Name&quot;, &quot;krishna&quot;)
+            .append(&quot;Last_Name&quot;, &quot;kishore&quot;)
+            .append(&quot;Mark&quot;, 91)
+            .append(&quot;age&quot;, 20);
+        Document d4 = new Document(&quot;First_Name&quot;, &quot;Prem&quot;)
+            .append(&quot;Last_Name&quot;, &quot;sai&quot;)
+            .append(&quot;Mark&quot;, 89)
+            .append(&quot;age&quot;, 19);
+        ArrayList&lt;Document&gt; docs = new ArrayList&lt;&gt;();
+        docs.add(d1);
+        docs.add(d2);
+        docs.add(d3);
+        docs.add(d4);
+        col.insertMany(docs);
+        Document hm = col.find().sort(new BasicDBObject(&quot;Mark&quot;, -1)).first();
+        if (hm != null) {
+            int m = hm.getInteger(&quot;Mark&quot;);
+            FindIterable&lt;Document&gt; hmStudents = col.find(Filters.eq(&quot;Mark&quot;, m));
+            System.out.println(&quot;Students with the highest mark:&quot;);
+            for (Document d : hmStudents) {
+                System.out.println(d);
+            }
+        } else {
+            System.out.println(&quot;No students found&quot;);
+        }
+    }
+}
+```
+
+Question 2:
+
+```java
+import java.util.ArrayList;
+import org.bson.Document;
+import com.mongodb.BasicDBObject;
+import com.mongodb.client.*;
+
+public class Assignment_2_2 {
+    public static void main(String[] args) {
+        MongoClient mc = MongoClients.create(&quot;mongodb://localhost:27017&quot;);
+        MongoDatabase db = mc.getDatabase(&quot;Saturday&quot;);
+        MongoCollection&lt;Document&gt; col = db.getCollection(&quot;employee&quot;);
+        col.drop();
+        Document d1 = new Document(&quot;First_Name&quot;, &quot;Sai&quot;)
+            .append(&quot;Last_Name&quot;, &quot;Kushal&quot;)
+            .append(&quot;salary&quot;, 18000)
+            .append(&quot;age&quot;, 30);
+        Document d2 = new Document(&quot;First_Name&quot;, &quot;Krishna&quot;)
+            .append(&quot;Last_Name&quot;, &quot;Kishore&quot;)
+            .append(&quot;salary&quot;, 21000)
+            .append(&quot;age&quot;, 35);
+        Document d3 = new Document(&quot;First_Name&quot;, &quot;Feroz&quot;)
+            .append(&quot;Last_Name&quot;, &quot;shaik&quot;)
+            .append(&quot;salary&quot;, 17000)
+            .append(&quot;age&quot;, 42);
+        Document d4 = new Document(&quot;First_Name&quot;, &quot;karthik&quot;)
+            .append(&quot;Last_Name&quot;, &quot;ram&quot;)
+            .append(&quot;salary&quot;, 22000)
+            .append(&quot;age&quot;, 37);
+        Document d5 = new Document(&quot;First_Name&quot;, &quot;suneeth&quot;)
+                .append(&quot;Last_Name&quot;, &quot;reddy&quot;)
+                .append(&quot;salary&quot;, 38000)
+                .append(&quot;age&quot;, 44);
+        Document d6 = new Document(&quot;First_Name&quot;, &quot;lalith&quot;)
+                .append(&quot;Last_Name&quot;, &quot;sri&quot;)
+                .append(&quot;salary&quot;, 29000)
+                .append(&quot;age&quot;, 32);
+        ArrayList&lt;Document&gt; docs = new ArrayList&lt;&gt;();
+        docs.add(d1);
+        docs.add(d2);
+        docs.add(d3);
+        docs.add(d4);
+        docs.add(d5);
+        docs.add(d6);
+        col.insertMany(docs);
+        FindIterable&lt;Document&gt; ss = col.find().sort(new BasicDBObject(&quot;salary&quot;, 1));
+        Document ls = null;
+        for (Document d : ss) {
+            int a = d.getInteger(&quot;age&quot;);
+            if (a &gt;= 30 &amp;&amp; a &lt;= 40) {
+                ls = d;
+                break;
+            }
+        }
+        if (ls != null) {
+            System.out.println(&quot;Employee with the lowest salary in the age range 30 to 40:&quot;);
+            System.out.println(ls.toJson());
+        } else {
+            System.out.println(&quot;No employees found&quot;);
+        }
+    }
+}
+```
